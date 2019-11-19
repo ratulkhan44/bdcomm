@@ -88,13 +88,26 @@ class EntryController extends Controller
         return redirect()->back();
     }
 
-
+    // Send text submission request to Admin/Staffs
     public function addsms()
     {
-        $user=Auth::user();
-        $divisions=Division::all();
-        $clientList=User::find($user->id)->clients; 
-        return view('pages.entry.addsms',compact(['clientList','divisions']));
+        $user         = Auth::user();
+        $divisions    = Division::all();
+        $client_list   = User::find($user->id)->clients;
+
+        return view('pages.entry.addsms', compact(['client_list', 'divisions']));
+
+        /*
+        return App\PermanentAddr::whereHas('client', function($query){
+            $village = "234324";
+            $mama = $query->where('village', '=', $village);
+            if(isset($div_id)) {
+                $mama = $query->where('division_id', '=', $div_id);
+                $mama = $query->where('district_id', '=', '1');
+            }
+            return $mama;
+        })->get();
+        */
     }
 
     public function addemail()
@@ -128,11 +141,40 @@ class EntryController extends Controller
         return $citycorp;
     }
 
+    public function getFilteredClients(Request $request) {
+
+        return Client::whereHas('permanentaddress', function($query) use($request){
+
+
+            if(!empty($request->division)) {
+                $clients = $query->where('division_id', '=', $request->division);
+            }
+
+            if(!empty($request->district)) {
+             $clients = $query->where('district_id', '=', $request->district);
+            }
+
+            if(!empty($request->upazilla)) {
+             $clients = $query->where('upazilla_id', '=', $request->upazilla);
+            }
+
+            if(!empty($request->union)) {
+             $clients = $query->where('union', '=', $request->union);
+            }
+
+            if(!empty($request->village)) {
+             $clients = $query->where('village', '=', $request->village);
+            }
+            return $clients;
+
+        })->get();
+    }
+
     public function getDivisionalClients($id) // 2
-    { 
-       $divisionclients=Division::find($id)->clients;
+    {
+       $divisionclients = Division::find($id)->clients;
        return $divisionclients;
-        
+
     }
 
     public function recieveSmsRequest(Request $request)
@@ -154,7 +196,7 @@ class EntryController extends Controller
     {
         // $allclients=Client::whereHas('Muslim',function($query){
         //     return $query->where('religion','=','Muslim');
-            
+
         // });
         // $allclients->
         // return $allclients;

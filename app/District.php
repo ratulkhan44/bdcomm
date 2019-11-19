@@ -10,10 +10,12 @@ class District extends Model
     {
         return $this->belongsTo('App\Divison');
     }
+
     public function upazillas()
     {
         return $this->hasMany(Upazilla::class);
     }
+
     public function pourasavas()
     {
         return $this->hasMany(Pourosava::class);

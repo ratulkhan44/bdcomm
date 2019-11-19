@@ -8,16 +8,12 @@ class Client extends Model
 {
     use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
-    public function upazillas()
-    {
-        return $this->hasManyDeep('App\Upazilla', ['App\PermanentAddress', 'App\District', 'App\Division']);
-    }
-
     public function permanentaddress()
     {
     	return $this->hasOne('App\PermanentAddress');
     }
 
+    // no use yet
     public function presentaddress()
     {
     	return $this->hasOne('App\PresentAddress');
@@ -28,6 +24,7 @@ class Client extends Model
     	return $this->belongsTo('App\User');
     }
 
+    // no use yet
     public function smss()
     {
         return $this->hasMany('App\Sms');
