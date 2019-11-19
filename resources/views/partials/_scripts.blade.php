@@ -7,6 +7,18 @@
 <script src="{{asset('js/vendor/chartjs/Chart.min.js')}}"></script>
 <script src="{{asset('js/components/dashboard-init.js')}}"></script>
 <script src="{{asset('js/components/main.js')}}"></script>
+<script src="{{asset('js/components/toastr.min.js')}}"></script>
+{!! Toastr::message() !!}
+<script>
+        @if($errors->any())
+            @foreach($errors->all() as $error)
+                  toastr.error('{{ $error }}','Error',{
+                      closeButton:true,
+                      progressBar:true,
+                   });
+            @endforeach
+        @endif
+    </script>
 
 @stack('scripts')
 <!--script-->

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Division extends Model
 {
+    protected $fillable = [
+        'name'
+    ];
     public function clients()
     {
         return $this->hasManyThrough('App\Client','App\PermanentAddress');

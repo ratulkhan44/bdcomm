@@ -24,6 +24,18 @@ Route::group(['as'=>'admin.','prefix' => 'admin/', 'namespace'=>'Admin','middlew
     Route::post('adduser','AdminController@adduserStore')->name('adduser');
     Route::get('addformdata','AdminController@addForm')->name('addformdata');
     Route::get('smsdetails','AdminController@smsDetails')->name('smsdetails');
+    Route::resource('division', 'DivisionController');
+    Route::resource('district', 'DistrictController');
+    Route::resource('upazilla', 'UpazillaController');
+    Route::resource('pourosava', 'PourosavaController');
+    Route::resource('citycorp', 'CitycorpController');
+    Route::resource('professiontype', 'ProfessiontypeController');
+    Route::resource('professional', 'ProfessionalController');
+    Route::resource('businesstype', 'BusinessTypeController');
+    Route::resource('politicalview', 'PoliticalViewController');
+    Route::resource('wing', 'WingController');
+    Route::resource('unit', 'UnitController');
+    Route::resource('post', 'PostController');
 });
 
 Route::group(['as'=>'staff.','prefix' => 'staff/', 'namespace'=>'Staff','middleware'=>['auth','staff']],function(){
