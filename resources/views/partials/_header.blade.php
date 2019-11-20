@@ -188,10 +188,10 @@
                     <li><a href="">Add Upazilla</a></li>
                     <li><a href="">Add Pourosava</a></li>
                     <li><a href="">Add Citycorporation</a></li>
-                    
+
                     </ul>
                 </li>
-               
+
                 @endif
                 @if(Request::is('entry*'))
                 <li class="{{ Request::is('entry/addsms') ? 'active' : '' }}">
@@ -204,6 +204,12 @@
                     <a href="{{ route('entry.addemail') }}">
                         <i class="icon-grid"></i>
                         <span>Add Email</span>
+                    </a>
+                </li>
+                <li class="{{ Request::is('entry/listPendingCampaigns') ? 'active' : '' }}">
+                    <a href="{{ route('entry.listPendingCampaigns') }}">
+                        <i class="icon-grid"></i>
+                        <span>Pending Campaign</span>
                     </a>
                 </li>
                 @endif

@@ -6,25 +6,39 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Citycorp;
 use App\Client;
+use App\Campaign;
 use App\District;
 use App\Division;
 use App\Pourosava;
-use App\Sms;
-use App\Smsdetail;
+use App\Text;
 use App\PermanentAddress;
 use App\Political;
 use App\PresentAddress;
 use App\Profession;
 use App\Upazilla;
 use App\User;
+use App\ProfessionType;
+use App\Professional;
+use App\BusinessType;
+use App\PoliticalView;
+use App\Wing;
+use App\Unit;
+use App\Post;
+
 use Illuminate\Support\Facades\Auth;
 
 class EntryController extends Controller
 {
     public function index()
     {
-        //$divisions=Division::all();
-        return view('pages.entry.dashboard');
+        $profession_types = ProfessionType::all();
+        $professionals = Professional::all();
+        $business_types = BusinessType::all();
+        $political_views = PoliticalView::all();
+        $wings = Wing::all();
+        $units = Unit::all();
+        $posts = Post::all();
+        return view('pages.entry.dashboard', compact('profession_types', 'professionals', 'business_types', 'political_views', 'wings', 'units', 'posts'));
     }
 
     public function submitForm(Request $request)
@@ -179,11 +193,67 @@ class EntryController extends Controller
 
     public function recieveSmsRequest(Request $request)
     {
-        $recievedSms=new Smsdetail();
-        $recievedSms->message="$request->text";
-        $recievedSms->save();
+        $message = $request->message;
+        $campaign = $request->name;
+        $clients = $request->clientsToText;
 
-        return "Success";
+        $textModel = new Text();
+        $textModel->message = $message;
+        $textModel->save();
+
+        if(isset($textModel->id)) {
+            $campaignModel = new Campaign();
+            $user = Auth::user();
+            $campaignModel->name = $campaign;
+            $campaignModel->text_id = $textModel->id;
+            $campaignModel->user_id = $user->id;
+            $campaignModel->status = 1;
+            $campaignModel->save();
+
+            if(isset($campaignModel->id)) {
+
+                $campaign = Campaign::find($campaignModel->id);
+                foreach ($clients as $client) {
+                    $campaign->clients()->attach($client);
+                }
+            }
+        }
+    }
+
+    public function showPendingCampaign() {
+        $campaigns         = Campaign::all()->where('user_id', 3);
+
+        //$texts         = Text::all();
+
+
+
+        // $indivCampName = [];
+        // $indivCampText = [];
+        //
+        // foreach ($campaigns as $campaign) {
+        //     $name = $campaign->name;
+        //     $text = Text::find($campaign->id)->campaign;
+        //
+        //     array_push($indivCampName, $name);
+        //     array_push($indivCampText, $text);
+        // }
+        //
+        // dd($indivCampText);
+
+
+        // $textBody          = Text::find($campaigns->id)->campaign;
+
+        return view('pages.entry.pending_campaigns', compact(['campaigns']));
+    }
+
+    public function showPendingCampaignList($id) {
+
+         $user = Auth::user();
+         $campaigns = Campaign::find($id);
+         if($user->id == $campaigns->user_id) {
+             $clients = $campaigns->clients;
+             return view('pages.entry.pending_campaigns_list',compact('clients'));
+         }
     }
 
     public function apatoto()

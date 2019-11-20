@@ -7,7 +7,7 @@
 @section('content')
 <div class="card ">
     <div class="card-body">
-        <form action="" class="filter-form">
+        <form action="" method="post" class="filter-form" id="filter-form">
             <div class="row">
                 <div class="form-group col-md-4">
                     <select class="filter-input form-control search-select division" name="division">
@@ -42,6 +42,9 @@
                 </div>
                 <div class="form-group col-md-4">
                     <input class="filter-input form-control search-select village" type="text" name="village" placeholder="Village">
+                </div>
+                <div class="form-group col-md-4">
+                    <input class="form-control btn btn-primary" type="Submit" name="submit" value="Submit">
                 </div>
             </div>
         </form>
@@ -90,17 +93,17 @@
                 <form>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" name="text" id="message-text"></textarea>
+                        <textarea class="form-control" name="text" id="message_text"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Campaign name:</label>
-                        <input type="text" class="form-control" name="campaign_name" placeholder="Campaign name">
+                        <input type="text" class="form-control" name="campaign_name" placeholder="Campaign name" id="campaign_name">
                     </div>
                 </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary submit">Send request</button>
+                    <button id="submit_sms_req" type="button" class="btn btn-primary">Send request</button>
                 </div>
             </div>
         </div>
@@ -149,11 +152,121 @@
         });
 
         // Get cleints
+        $("#filter-form").on('submit', function(e) {
+            e.preventDefault();
+            var divisionName = $('.division').attr('name');
+            var divisionID = $('.division option:selected').data('id');
+            var districtName = $('.district').attr('name');
+            var districtID = $('.district option:selected').data('id');
+            var upazillaName = $('.upazilla').attr('name');
+            var upazillaID = $('.upazilla option:selected').data('id');
+            var citycorpName = $('.citycorp').attr('name');
+            var citycorpID = $('.citycorp option:selected').data('id');
+            var pourosavaName = $('.pourosava').attr('name');
+            var pourosavaID = $('.pourosava option:selected').data('id');
+            var unionName = $('.union').attr('name');
+            var unionValue = $('.union').val();
+            var villageName = $('.village').attr('name');
+            var villageValue = $('.village').val();
+
+            var filters = {};
+
+            if(divisionID) {
+                filters[divisionName] = divisionID;
+            }
+            if(districtID) {
+                filters[districtName] = districtID;
+            }
+            if(upazillaID) {
+                filters[upazillaName] = upazillaID;
+            }
+            if(citycorpID) {
+                filters[citycorpName] = citycorpID;
+            }
+            if(unionValue) {
+                filters[unionName] = unionValue;
+            }
+            if(villageValue) {
+                filters[villageName] = villageValue;
+            }
+
+            var divisionURL = 'getfilteredclients';
+
+            $('#clientList tbody tr').remove();
+
+            $.ajax({
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: divisionURL,
+                data: filters,
+                dataType: 'json',
+                success: function(data){
+
+                    var clientSerial = 1;
+                    $(data).each(function(index, value) {
+                        if(data.length) {
+                            $('#clientList').append(`<tr class="clientsInfo">
+                                <td data-id=`+value.id+`>`+clientSerial+`</td>
+                                <td>`+value.email+`</td>
+                                <td>`+value.name+`</td>
+                                <td>`+value.contact+`</td>`);
+                        }
+                        clientSerial++;
+                    });
+                }
+            });
+
+        });
+
+        $('#submit_sms_req').on('click',function(){
+
+        var clientsToText = []
+
+        var clientsToText = $('.clientsInfo td:first-child').map(function() {
+            return $(this).data('id');
+        }).get();
+
+        console.log(clientsToText);
+
+        var message_text = $('#message_text').val();
+        var campaign_name = $('#campaign_name').val();
+
+        var reqData = {
+            message: message_text,
+            name: campaign_name,
+            clientsToText: clientsToText
+        }
+
+        console.log(reqData);
+
+        var divisionURL = 'collectsmsrequest';
+
+        $.ajax({
+                type: 'POST',
+                url: divisionURL,
+                data: reqData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data){
+                        console.log(data);
+                }
+            });
+        });
+
+
+
+
+
+
+        /*
         $('.filter-form').on('change', '.filter-input', function(evt){
 
             var filters = {};
 
-            console.log(evt.target.type);
+            // console.log(evt.target.type);
 
             $.each($('.filter-input'), function(idx, elem) {
 
@@ -161,6 +274,7 @@
                     var inputID = $('option:selected', this).data('id');
                     var inputName = $(this).attr('name');
 
+                    console.log(filters);
                     filters[inputName] = inputID;
                 }
 
@@ -168,10 +282,10 @@
                     var inputID = $(this).val();
                     var inputName = $(this).attr('name');
 
+                    console.log(filters);
                     filters[inputName] = inputID;
                 }
 
-                console.log(filters);
             });
 
 
@@ -201,6 +315,7 @@
                 }
             });
         });
+        */
 
 
 
@@ -253,26 +368,6 @@
         //     });
         // });
 
-        $('.submit').on('click',function(){
 
-        var divisionID = $('option:selected',this).attr('data-id');
-        var divisionURL = 'collectsmsrequest';
-            var text= $('#message-text').val();
-
-        $.ajax({
-                type: 'POST',
-                url: divisionURL,
-                data:{text:text},
-                headers: {
-
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
-                },
-                success: function(data){
-                        console.log(data);
-
-                }
-            });
-        });
     </script>
 @endpush

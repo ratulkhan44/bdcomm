@@ -8,7 +8,7 @@
 
         var divisionID = $('option:selected',this).attr('data-id');
         var divisionURL = 'getdistricts/' + divisionID;
-        
+
         $.ajax({
             type: 'GET',
             url: divisionURL,
@@ -22,7 +22,7 @@
             }
         });
     });
-   
+
 
     $('.districtA').on('change',function(){
 
@@ -82,7 +82,7 @@
       });
 </script>
 @endpush --}}
-       
+
 <form  method="post" action="{{route('entry.store')}}">
     @csrf
     <div class="row justify-content-left">
@@ -162,7 +162,7 @@
                 <option value="1">Dhaka</option>
                 {{-- @foreach ($divisions as $division)
                 <option value="{{$division->name}}" data-id="{{$division->id}}">{{$division->name}}</option>
-                    
+
                 @endforeach --}}
             </select>
           </div>
@@ -252,27 +252,29 @@
           </div>
             <div class="form-group">
             <select class="form-control search-select" name="profession_type">
-              <option value="">--Select Profession Type--</option>
-              <option value="Ex-Service">Ex-Service</option>
-              <option value="Business">Business</option>
+                <option value="">--Select Profession Type--</option>
+                @foreach ($profession_types as $profession_type)
+                <option value="{{$profession_type->id}}" data-id="{{$profession_type->id}}">{{$profession_type->profession_type}}</option>
+                @endforeach
             </select>
           </div>
           <div class="form-group">
             <select class="form-control search-select" name="professional">
-              <option value="">--Select Professional--</option>
-              <option value="Ex-Doctor">Ex-Doctor</option>
-              <option value="Engineer">Engineer</option>
-              <option value="professional">Not professional</option>
+                <option value="">--Select Profession Type--</option>
+                @foreach ($professionals as $professional)
+                <option value="{{$professional->id}}" data-id="{{$professional->id}}">{{$professional->professional}}</option>
+                @endforeach
             </select>
           </div>
           <div class="form-group">
-            <select class="form-control search-select" name="business_type">
-              <option value="">--Select Business Type--</option>
-              <option value="Government">Ex-Government</option>
-              <option value="Bank">Bank</option>
-              <option value="Multinational">Multinational</option>
-            </select>
+              <select class="form-control search-select" name="business_type">
+                  <option value="">--Select Business Type--</option>
+                  @foreach ($business_types as $business_type)
+                  <option value="{{$business_type->id}}" data-id="{{$business_type->id}}">{{$business_type->business_type}}</option>
+                  @endforeach
+              </select>
           </div>
+
           <div class="form-group">
             <input type="text" class="form-control" name="org_name" placeholder="Organization name">
           </div>
@@ -289,34 +291,34 @@
           </div>
             <div class="form-group">
             <select class="form-control search-select" name="political_view">
-              <option value="">--Select Political view--</option>
-              <option value="Ex- BNP">Ex- BNP</option>
-              <option value="AL">AL</option>
-              <option value="Neutral">Neutral</option>
+                <option value="">--Select Political view--</option>
+                @foreach ($political_views as $political_view)
+                <option value="{{$political_view->id}}" data-id="{{$political_view->id}}">{{$political_view->political_view}}</option>
+                @endforeach
             </select>
           </div>
           <div class="form-group">
             <select class="form-control search-select" name="wing_name">
-              <option value="">--Select Wing name--</option>
-              <option value="Chatrodol">Chatrodol</option>
-              <option value="Chatrolig">Chatrolig</option>
-              <option value="Other">Other</option>
+                <option value="">--Select Wing name--</option>
+                @foreach ($wings as $wing)
+                <option value="{{$wing->id}}" data-id="{{$wing->id}}">{{$wing->wing}}</option>
+                @endforeach
             </select>
           </div>
           <div class="form-group">
             <select class="form-control search-select" name="unit_name">
               <option value="">--Select Unit name--</option>
-              <option value="Zilla committee">Zilla committee</option>
-              <option value="Thana Committee">Thana Committee</option>
-              <option value="Other">Other</option>
+                @foreach ($units as $unit)
+                <option value="{{$unit->id}}" data-id="{{$unit->id}}">{{$unit->unit}}</option>
+                @endforeach
             </select>
           </div>
           <div class="form-group">
             <select class="form-control search-select" name="post_name">
               <option value="">--Select Post name--</option>
-              <option value="President">President</option>
-              <option value="Member">Member</option>
-              <option value="Supporter">Supporter</option>
+                @foreach ($posts as $post)
+                <option value="{{$post->id}}" data-id="{{$post->id}}">{{$post->post}}</option>
+                @endforeach
             </select>
           </div>
         </div>
@@ -325,7 +327,7 @@
       <div class="col-lg-4">
         <div class="p-5">
           <div class="form-group">
-              
+
             </div>
         </div>
       </div>

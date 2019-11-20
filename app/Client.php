@@ -13,6 +13,11 @@ class Client extends Model
     	return $this->hasOne('App\PermanentAddress');
     }
 
+    public function campaigns()
+    {
+        return $this->belongsToMany('App\Campaign');
+    }
+
     // no use yet
     public function presentaddress()
     {

@@ -44,6 +44,8 @@ Route::group(['as'=>'entry.','prefix' => 'entry/', 'namespace'=>'Entry','middlew
     Route::get('getcitycorps/{id}','EntryController@showCitycorp')->name('showCitycorp');
     Route::get('addsms','EntryController@addsms')->name('addsms');
     Route::get('addemail','EntryController@addemail')->name('addemail');
+    Route::get('pending-campaigns','EntryController@showPendingCampaign')->name('listPendingCampaigns');
+    Route::get('pending-campaigns/{id}','EntryController@showPendingCampaignList')->name('listPendingCampaignsList');
     Route::post('collectsmsrequest','EntryController@recieveSmsRequest');
     Route::get('apatoto','EntryController@apatoto');
     Route::get('apatotoo','EntryController@apatotoStore');
@@ -53,6 +55,32 @@ Route::group(['as'=>'entry.','prefix' => 'entry/', 'namespace'=>'Entry','middlew
 Route::get('/example', function() {
     $divisionclients = App\Division::find(1)->clients;
     return $divisionclients;
+});
+
+Route::get('/campaign', function(){
+
+    // $camp = App\Campaign::find(2);
+    //  $camp->clients;
+    // $camp->clients->pluck('name');
+    // App\Campaign::with('clients')->get();
+
+    $camp->clients->pluck('name');
+
+    // $campaign = App\Campaign::first();
+    // $client = App\Client::first();
+    // $campaign->clients()->attach($client); // firstCamp->theseClients->attach(theModel)
+
+    $campaign = App\Campaign::find(1);
+    $client = App\Client::find(1);
+
+    foreach ($client->campaigns as $campaign) {
+        // $campaign->clients()->attach($client);
+        echo "Inserted <br>";
+    }
+    // foreach ($campaign->clients as $client) {
+    //     dd($client->campaigns);
+    // }
+
 });
 
 Route::get('/example3', function(){
