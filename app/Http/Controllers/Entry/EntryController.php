@@ -31,6 +31,8 @@ class EntryController extends Controller
 {
     public function index()
     {
+        $divisions    = Division::all();
+
         $profession_types = ProfessionType::all();
         $professionals = Professional::all();
         $business_types = BusinessType::all();
@@ -38,13 +40,13 @@ class EntryController extends Controller
         $wings = Wing::all();
         $units = Unit::all();
         $posts = Post::all();
-        return view('pages.entry.dashboard', compact('profession_types', 'professionals', 'business_types', 'political_views', 'wings', 'units', 'posts'));
+        return view('pages.entry.dashboard', compact('divisions', 'profession_types', 'professionals', 'business_types', 'political_views', 'wings', 'units', 'posts'));
     }
 
     public function submitForm(Request $request)
     {
         $politicalInfo=new Political();
-        $politicalInfo->political=$request->political_view;
+        $politicalInfo->political_view=$request->political_view;
         $politicalInfo->wing=$request->wing_name;
         $politicalInfo->unit=$request->unit_name;
         $politicalInfo->post=$request->post_name;

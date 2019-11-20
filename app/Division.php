@@ -6,16 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Division extends Model
 {
-    // public function clients()
-    // {
-    //     return $this->hasManyThrough('App\Client','App\PermanentAddress');
-    // }
 
-    // public function districts(){
-    //     return $this->hasMany(District::class);
-    // }
+    protected $fillable = [
+        'name'
+    ];
+    public function clients()
+    {
+        return $this->hasManyThrough('App\Client','App\PermanentAddress');
+    }
+    public function districts(){
+        return $this->hasMany(District::class);
+    }
+    public function citycorporations(){
+        return $this->hasMany(Citycorp::class);
+    }
 
-    // public function citycorporations(){
-    //     return $this->hasMany(Citycorp::class);
-    // }
 }

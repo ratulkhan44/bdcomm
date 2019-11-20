@@ -2,8 +2,9 @@
 @section('title','Madol | Dashboard')
 @section('content')
 
-{{-- @push('scripts')
+@push('scripts')
 <script>
+
     $('.divisionA').on('change',function(){
 
         var divisionID = $('option:selected',this).attr('data-id');
@@ -23,6 +24,24 @@
         });
     });
 
+    $('.divisionA').on('change',function(){
+
+        var divisionID = $('option:selected',this).attr('data-id');
+        var divisionURL = 'getdistricts/' + divisionID;
+
+        $.ajax({
+            type: 'GET',
+            url: divisionURL,
+            dataType: 'json',
+            success: function(data){
+              $('.citycorpA option').remove();
+              $('.citycorpA').append("<option>Select District</option>");
+                $(data).each(function(index, value){
+                    $('.citycorpA').append("<option data-id="+ value.id +">"+ value.name +"</option>")
+                });
+            }
+        });
+    });
 
     $('.districtA').on('change',function(){
 
@@ -79,9 +98,106 @@
               });
           }
       });
-      });
+    });
 </script>
-@endpush --}}
+
+<script type="text/javascript">
+$('.divisionB').on('change',function(){
+
+    var divisionID = $('option:selected',this).attr('data-id');
+    var divisionURL = 'getdistricts/' + divisionID;
+
+    $.ajax({
+        type: 'GET',
+        url: divisionURL,
+        dataType: 'json',
+        success: function(data){
+          $('.districtB option').remove();
+          $('.districtB').append("<option>Select District</option>");
+            $(data).each(function(index, value){
+                $('.districtB').append("<option data-id="+ value.id +">"+ value.name +"</option>")
+            });
+        }
+    });
+});
+
+$('.divisionB').on('change',function(){
+
+    var divisionID = $('option:selected',this).attr('data-id');
+    var divisionURL = 'getdistricts/' + divisionID;
+
+    $.ajax({
+        type: 'GET',
+        url: divisionURL,
+        dataType: 'json',
+        success: function(data){
+          $('.citycorpB option').remove();
+          $('.citycorpB').append("<option>Select District</option>");
+            $(data).each(function(index, value){
+                $('.citycorpB').append("<option data-id="+ value.id +">"+ value.name +"</option>")
+            });
+        }
+    });
+});
+
+$('.districtB').on('change',function(){
+
+    var districtID = $('option:selected',this).attr('data-id');
+    var districtURL = 'getupazillas/' + districtID;
+
+    $.ajax({
+        type: 'GET',
+        url: districtURL,
+        dataType: 'json',
+        success: function(data){
+          $('.upazillaB option').remove();
+          $('.upazillaB').append("<option>Select Upazilla</option>");
+            $(data).each(function(index, value){
+                $('.upazillaB').append("<option data-id="+ value.id +">"+ value.name +"</option>")
+            });
+        }
+    });
+  });
+
+  $('.districtB').on('change',function(){
+
+  var districtID = $('option:selected',this).attr('data-id');
+  var districtURL = 'getpourosavas/' + districtID;
+
+  $.ajax({
+      type: 'GET',
+      url: districtURL,
+      dataType: 'json',
+      success: function(data){
+        $('.pourosavaB option').remove();
+        $('.pourosavaB').append("<option>Select Pourosava</option>");
+          $(data).each(function(index, value){
+              $('.pourosavaB').append("<option data-id="+ value.id +">"+ value.name +"</option>")
+          });
+      }
+  });
+  });
+
+  $('.divisionB').on('change',function(){
+
+  var divisionID = $('option:selected',this).attr('data-id');
+  var divisionURL = 'getcitycorps/' + divisionID;
+
+  $.ajax({
+      type: 'GET',
+      url: divisionURL,
+      dataType: 'json',
+      success: function(data){
+        $('.citycorpB option').remove();
+        $('.citycorpB').append("<option>Select City Corporation</option>");
+          $(data).each(function(index, value){
+              $('.citycorpB').append("<option data-id="+ value.id +">"+ value.name +"</option>")
+          });
+      }
+  });
+});
+</script>
+@endpush
 
 <form  method="post" action="{{route('entry.store')}}">
     @csrf
@@ -159,17 +275,14 @@
             <div class="form-group">
             <select class="form-control search-select divisionA" name="division">
                 <option value="">--Select Division--</option>
-                <option value="1">Dhaka</option>
-                {{-- @foreach ($divisions as $division)
+                @foreach ($divisions as $division)
                 <option value="{{$division->name}}" data-id="{{$division->id}}">{{$division->name}}</option>
-
-                @endforeach --}}
+                @endforeach
             </select>
           </div>
           <div class="form-group">
             <select class="form-control search-select districtA" name="district">
                 <option value="">--Select District--</option>
-                <option value="1">Narayongonj</option>
             </select>
           </div>
           <div class="form-group">
@@ -207,38 +320,36 @@
           </div>
           <label class="form-group"><b>Present Address</b></label>
             <div class="form-group">
-            <select class="form-control search-select" name="division1">
-              <option value="">--Select Division--</option>
-              <option value="1">Dhaka</option>
-            </select>
+                <select class="form-control search-select divisionB" name="division">
+                    <option value="">--Select Division--</option>
+                    @foreach ($divisions as $division)
+                    <option value="{{$division->name}}" data-id="{{$division->id}}">{{$division->name}}</option>
+                    @endforeach
+                </select>
           </div>
           <div class="form-group">
-            <select class="form-control search-select" name="district1">
+            <select class="form-control search-select districtB" name="district2">
               <option value="">--Select District--</option>
-              <option value="1">Narayangonj</option>
             </select>
           </div>
           <div class="form-group">
-            <select class="form-control search-select" name="upazila1">
+            <select class="form-control search-select upazillaB" name="upazila2">
               <option value="">--Select Upazila--</option>
-              <option value="1">Basari</option>
             </select>
           </div>
           <div class="form-group">
-              <input type="text" class="form-control" name="union1" placeholder="Union/Word">
+              <input type="text" class="form-control" name="union2" placeholder="Union/Word">
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="village1" placeholder="Village/Road/Moholla">
+            <input type="text" class="form-control" name="village2" placeholder="Village/Road/Moholla">
           </div>
           <div class="form-group">
-            <select class="form-control search-select" name="pourosava1">
+            <select class="form-control search-select pourosavaB" name="pourosava2">
               <option value="">--Select Pourosava--</option>
-              <option value="1">xxxx</option>
             </select>
           </div>
           <div class="form-group">
-            <select class="form-control search-select" name="city_corporation1">
-              <option value="1">south</option>
+            <select class="form-control search-select citycorpB" name="city_corporation2">
             </select>
           </div>
         </div>

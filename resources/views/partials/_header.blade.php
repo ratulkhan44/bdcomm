@@ -178,20 +178,77 @@
                     </a>
                 </li>
                 <li class="">
+                        <a class="" href="javascript:void(0)" aria-expanded="false">
+                            <i class="icon-basket-loaded"></i>
+                            <span>Address List</span>
+                        </a>
+                        <ul aria-expanded="false" class="submenu collapse">
+                            <li><a href="{{route('admin.division.index')}}">All Division</a></li>
+                            <li><a href="{{route('admin.district.index')}}">All District</a></li>
+                            <li><a href="{{route('admin.upazilla.index')}}">All Upazilla</a></li>
+                            <li><a href="{{route('admin.pourosava.index')}}">All Pourosava</a></li>
+                            <li><a href="{{route('admin.citycorp.index')}}">All City Corporation</a></li>
+                        </ul>
+                    </li>
+                <li class="">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
                         <i class="icon-basket-loaded"></i>
                         <span>Add Address</span>
                     </a>
                     <ul aria-expanded="false" class="submenu collapse">
-                    <li><a href="">Add Division</a></li>
-                    <li><a href="">Add District</a></li>
-                    <li><a href="">Add Upazilla</a></li>
-                    <li><a href="">Add Pourosava</a></li>
-                    <li><a href="">Add Citycorporation</a></li>
-
+                        <li><a href="{{route('admin.division.create')}}">Create Division</a></li>
+                        <li><a href="{{route('admin.district.create')}}">Create District</a></li>
+                        <li><a href="{{route('admin.upazilla.create')}}">Create Upazilla</a></li>
+                        <li><a href="{{route('admin.pourosava.create')}}">Create Pourosava</a></li>
+                        <li><a href="{{route('admin.citycorp.create')}}">Create City Corporation</a></li>
                     </ul>
                 </li>
-
+                <li class="">
+                        <a class="" href="javascript:void(0)" aria-expanded="false">
+                            <i class="icon-basket-loaded"></i>
+                            <span>All Profession List</span>
+                        </a>
+                        <ul aria-expanded="false" class="submenu collapse">
+                            <li><a href="{{route('admin.professiontype.index')}}">All Profession Type</a></li>
+                            <li><a href="{{route('admin.professional.index')}}">All Professional</a></li>
+                            <li><a href="{{route('admin.businesstype.index')}}">All Business Type</a></li>
+                        </ul>
+                    </li>
+                    <li class="">
+                            <a class="" href="javascript:void(0)" aria-expanded="false">
+                                <i class="icon-basket-loaded"></i>
+                                <span>All Political List</span>
+                            </a>
+                            <ul aria-expanded="false" class="submenu collapse">
+                                <li><a href="{{route('admin.politicalview.index')}}">All Political View</a></li>
+                                <li><a href="{{route('admin.wing.index')}}">All Wing</a></li>
+                                <li><a href="{{route('admin.unit.index')}}">All Unit</a></li>
+                                <li><a href="{{route('admin.post.index')}}">All Post</a></li>
+                            </ul>
+                        </li>
+                <li class="">
+                        <a class="" href="javascript:void(0)" aria-expanded="false">
+                            <i class="icon-basket-loaded"></i>
+                            <span>Add Profession</span>
+                        </a>
+                        <ul aria-expanded="false" class="submenu collapse">
+                            <li><a href="{{route('admin.professiontype.create')}}">Create Profession Type</a></li>
+                            <li><a href="{{route('admin.professional.create')}}">Create Professional</a></li>
+                            <li><a href="{{route('admin.businesstype.create')}}">Create Business Type</a></li>
+                        </ul>
+                    </li>
+                    <li class="">
+                            <a class="" href="javascript:void(0)" aria-expanded="false">
+                                <i class="icon-basket-loaded"></i>
+                                <span>Add Political</span>
+                            </a>
+                            <ul aria-expanded="false" class="submenu collapse">
+                                <li><a href="{{route('admin.politicalview.create')}}">Create Political View</a></li>
+                                <li><a href="{{route('admin.wing.create')}}">Create Wing</a></li>
+                                <li><a href="{{route('admin.unit.create')}}">Create Unit</a></li>
+                                <li><a href="{{route('admin.post.create')}}">Create Post</a></li>
+                            </ul>
+                        </li>
                 @endif
                 @if(Request::is('entry*'))
                 <li class="{{ Request::is('entry/addsms') ? 'active' : '' }}">
