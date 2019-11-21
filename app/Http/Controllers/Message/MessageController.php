@@ -175,7 +175,7 @@ class MessageController extends Controller
         $datajson->to   = $sms_to_number;
         $datajson->text = $smstext;
         $data_json      = json_encode($datajson);
-        $authorization  = base64_encode('Rupy:Kht@123!');
+        $authorization  = base64_encode('Rupy:Khgt@123!');
         $ch             = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
@@ -184,7 +184,7 @@ class MessageController extends Controller
             "Authorization: Basic $authorization",
             // 'Host: http://api.rankstelecom.com'
         ));
-        // curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
         curl_setopt($ch, CURLOPT_URL, 'http://api.rankstelecom.com/api/v3/sendsms/plain');
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -206,17 +206,17 @@ class MessageController extends Controller
         return $response;
     }
 
-    public function sendSMS()
+    public function sendSMSdfgd()
     {
 
         $datajson = new stdClass();
         $sms_to_number  = '8801685627791';
-        $datajson->from = '8804445600001';
+        $datajson->from = '8804445600000';
         $smstext        = 'weererer';
         $datajson->to   = $sms_to_number;
         $datajson->text = $smstext;
         $data_json      = json_encode($datajson);
-        $authorization  = base64_encode('Rupy:Kht@123!');
+        $authorization  = base64_encode('Frabbi:FRabbi@123!');
         $ch             = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
@@ -232,9 +232,9 @@ class MessageController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
         //var_dump(curl_getinfo($ch));
-        var_dump($response);
+
         $err = curl_error($ch);
-        //return $err;
+        // var_dump($err);
 
         // http://api.rankstelecom.com/api/v3/sendsms/plain?user=Rupy&password=Kht@123!&SMSText=TEST&GSM=8801710281427&type=longSMS&datacoding=8
 
@@ -256,5 +256,14 @@ class MessageController extends Controller
 
         return $response;
 
+    }
+
+    public function sendSMS()
+    {
+        $ch             = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'http://api.rankstelecom.com/api/v3/sendsms/plain?user=Frabbi&password=FRabbi@123!&SMSText=TEST&GSM=8801793724391&type=longSMS&datacoding=8&fbclid=IwAR0dRYxd--Taz7eXXaFvx6chzjia1UPnDNkrzp3ms9xwL7p6cbqxyUmYYT8');
+        // curl_setopt($ch, CURLOPT_GET, 1);
+        $response = curl_exec($ch);
+        var_dump($response);
     }
 }
