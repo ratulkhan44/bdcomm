@@ -25,6 +25,7 @@ Route::get('getupazillas/{id}','Common\CommonController@showUpazilla')->name('sh
 Route::get('getpourosavas/{id}','Common\CommonController@showPourosava')->name('showUpourosava');
 Route::get('getcitycorps/{id}','Common\CommonController@showCitycorp')->name('showCitycorp');
 Route::post('getfilteredclients','Common\CommonController@getFilteredClients');
+Route::get('/send', 'EmailController@send');
 
 
 Route::get('sendsms','Message\MessageController@sendSMS')->name('sendsms');
