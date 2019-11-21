@@ -1,5 +1,48 @@
 @extends('layouts.master')
 @section('title','Madol | Dashboard')
+
+@push('scripts')
+    <script type="text/javascript">
+
+    $('#sendSMSS').on('click',function(){
+    var reqData = {
+        "authentication": {
+            "username": "Rupy",
+            "password": "Kht@123!"
+        },
+        "messages": [
+            {
+                "sender": "044XXXXXXXX",
+                "text": "Hello",
+                "recipients": [
+                    {
+                        "gsm": "8801793724391"
+                    }
+                ],
+                "type": "longSMS",
+                "datacoding": 8,
+                "fbclid": "IwAR0dRYxd--Taz7eXXaFvx6chzjia1UPnDNkrzp3ms9xwL7p6cbqxyUmYYT8"
+            }
+        ]
+    };
+
+    $.ajax({
+            type: 'POST',
+            url: 'http://api.rankstelecom.com/api/v3/sendsms/json',
+            data: reqData,
+            headers: {
+                'Host': 'http://api.rankstelecom.com',
+                'Content-Type': 'application/json',
+                'Accept': '*/*'
+            },
+            success: function(data){
+                    console.log(data);
+            }
+        });
+    });
+    </script>
+@endpush
+
 @section('content')
 
     <div class="page-title d-flex justify-content-between">
@@ -23,13 +66,13 @@
             </div>
        <div class="card">
            <div class="card-body">
-                Hello
+                <a href="{{ route('sendsms') }}" type="button" class="btn btn-primary" name="button" id="sendSMS">Send</a>
            </div>
        </div>
         </div>
     </div>
-       
-            
-   
+
+
+
 
 @endsection

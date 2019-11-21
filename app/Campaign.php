@@ -11,6 +11,11 @@ class Campaign extends Model
         return $this->belongsToMany('App\Client');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     public function text() {
         return $this->belongsTo('App\Text');
     }

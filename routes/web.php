@@ -18,12 +18,28 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Common routes
+Route::get('/filtershow','Common\CommonController@index')->name('filtershow');
+Route::get('getdistricts/{id}','Common\CommonController@showDistrict')->name('showdistrict');
+Route::get('getupazillas/{id}','Common\CommonController@showUpazilla')->name('showupazilla');
+Route::get('getpourosavas/{id}','Common\CommonController@showPourosava')->name('showUpourosava');
+Route::get('getcitycorps/{id}','Common\CommonController@showCitycorp')->name('showCitycorp');
+Route::post('getfilteredclients','Common\CommonController@getFilteredClients');
+
+
+Route::get('sendsms','Message\MessageController@sendSMS')->name('sendsms');
+
+Route::get('pending-campaigns','Common\CommonController@showPendingCampaign')->name('listPendingCampaigns');
+Route::get('pending-campaigns/{id}','Common\CommonController@showPendingCampaignList')->name('listPendingCampaignsList');
+
 Route::group(['as'=>'admin.','prefix' => 'admin/', 'namespace'=>'Admin','middleware'=>['auth','admin']],function(){
     Route::get('dashboard','AdminController@index')->name('dashboard');
     Route::get('adduser','AdminController@adduser')->name('adduserShow');
     Route::post('adduser','AdminController@adduserStore')->name('adduser');
     Route::get('addformdata','AdminController@addForm')->name('addformdata');
     Route::get('smsdetails','AdminController@smsDetails')->name('smsdetails');
+    Route::get('allusers','AdminController@allusers')->name('allusers');
+    Route::get('deleteuser/{id}','AdminController@deleteuser')->name('deleteuser');
     Route::resource('division', 'DivisionController');
     Route::resource('district', 'DistrictController');
     Route::resource('upazilla', 'UpazillaController');
@@ -61,6 +77,7 @@ Route::group(['as'=>'entry.','prefix' => 'entry/', 'namespace'=>'Entry','middlew
     Route::post('collectsmsrequest','EntryController@recieveSmsRequest');
     Route::get('apatoto','EntryController@apatoto');
     Route::get('apatotoo','EntryController@apatotoStore');
+
 });
 
 // Test route to test entryController methods

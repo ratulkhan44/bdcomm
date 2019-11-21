@@ -176,7 +176,10 @@
                         <i class="icon-grid"></i>
                         <span>Add User</span>
                     </a>
-                </li>
+                        <ul aria-expanded="false" class="submenu collapse">
+                            <li><a href="{{route('admin.allusers')}}">All Users</a></li>
+                        </ul>
+                    </li>
                 <li class="">
                         <a class="" href="javascript:void(0)" aria-expanded="false">
                             <i class="icon-basket-loaded"></i>

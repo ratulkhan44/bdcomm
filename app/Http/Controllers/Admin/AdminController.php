@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    
+
     public function index()
     {
         return view('pages.admin.dashboard');
@@ -50,16 +50,16 @@ class AdminController extends Controller
         return view('pages.admin.addformdata');
     }
 
-    public function smsDetails()
-    {
-        $sms=Sms::select(['id','client_id','user_id'])->get()->first();
-        echo $sms;
-        die();
-        //$user=User::all()->where('id','=',$sms->user_id);
-        $client=Client::select(['id','name','email','contact'])->where('id','=', $sms->client_id)->get();
-        
+    public function allusers() {
 
-        dd($client);
-        return view('pages.admin.smsdetails',compact(['sms','client']));
+        $users = User::all()->where('role_id', '!=', 1);
+        return view('pages.admin.allusers', compact('users'));
+    }
+
+    public function deleteuser($id) {
+
+        $users = User::find($id);
+        $users->delete();
+        return redirect()->back();
     }
 }

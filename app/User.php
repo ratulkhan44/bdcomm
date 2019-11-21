@@ -47,9 +47,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Client');
     }
 
-    public function smss()
+    public function campaign()
     {
-        return $this->hasMany('App\Sms');
+        return $this->hasMany('App\Campaign');
     }
 
 }

@@ -140,7 +140,6 @@ class EntryController extends Controller
         return $district;
     }
 
-
     public function showUpazilla($id)
     {
         $upazilla=Upazilla::select()->where('district_id','=',$id)->get();
@@ -159,8 +158,9 @@ class EntryController extends Controller
 
     public function getFilteredClients(Request $request) {
 
-        return Client::whereHas('permanentaddress', function($query) use($request){
+        $user         = Auth::user();
 
+        $viewableUsers = Client::whereHas('permanentaddress', function($query) use($request, $user){
 
             if(!empty($request->division)) {
                 $clients = $query->where('division_id', '=', $request->division);
@@ -181,9 +181,14 @@ class EntryController extends Controller
             if(!empty($request->village)) {
              $clients = $query->where('village', '=', $request->village);
             }
+
+            $clients = $query->where('user_id', '=', $user->id);
+
             return $clients;
 
         })->get();
+
+        return $viewableUsers;
     }
 
     public function getDivisionalClients($id) // 2
