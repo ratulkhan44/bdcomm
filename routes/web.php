@@ -32,6 +32,7 @@ Route::get('sendsms','Message\MessageController@sendSMS')->name('sendsms');
 
 Route::get('pending-campaigns','Common\CommonController@showPendingCampaign')->name('listPendingCampaigns');
 Route::get('pending-campaigns/{id}','Common\CommonController@showPendingCampaignList')->name('listPendingCampaignsList');
+Route::get('send-campaigns-sms/{id}','Common\CommonController@sendCampaignSMS')->name('sendcampaignsms');
 
 Route::group(['as'=>'admin.','prefix' => 'admin/', 'namespace'=>'Admin','middleware'=>['auth','admin']],function(){
     Route::get('dashboard','AdminController@index')->name('dashboard');

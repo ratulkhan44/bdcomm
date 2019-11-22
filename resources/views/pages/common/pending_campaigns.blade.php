@@ -36,7 +36,9 @@
                                 <td>{{ $campaign->created_at->format('d-m-Y') }}</td>
                                 <td>{{ ($campaign->status == 0) ? "Pending" : "Completed" }}</td>
                                 <td>
-                                    <button class="btn btn-primary">Send All</button>
+                                    <a href="{{  url('/send-campaigns-sms', ['id' => $campaign->id]) }}">
+                                        <button class="btn btn-primary">Send All</button>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

@@ -4,7 +4,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     @stack('token')
-    <link rel="icon" href="http://www.madcoderz.com/madol/asset/images/favicon.ico">
+    <link rel="icon" href="{{ URL::to('/') }}/images/favicon.ico">
 
     <title>@yield('title')</title>
     @include('partials._styles')

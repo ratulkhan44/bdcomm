@@ -7,9 +7,9 @@
                 <div class="main-logo m-0 p-0">
                 <a href="{{route('home')}}" class="logo">
                         <span>
-                            <img src="http://www.madcoderz.com/madol/asset/images/logo.svg" alt="madol">
+                            <img src="{{ URL::to('/') }}/images/logo.svg" alt="bdcomm logo">
                         </span>
-                        <i><img src="http://www.madcoderz.com/madol/asset/images/icon-logo.svg" alt="madol"></i>
+                        <i><img src="{{ URL::to('/') }}/images/user/U100.jpg" alt="madol"></i>
                     </a>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                             <div class="scroolbar-notification">
                                 <div class="d-flex flex-row p-3">
                                     <a href="javascript:void(0)">
-                                        <img src="http://www.madcoderz.com/madol/asset/images/user/thumb/default-thumb.jpg" alt="Notification" class="list-thumbnail rounded-circle">
+                                        <img src="{{ URL::to('/') }}/images/user/U100.jpg" alt="Notification" class="list-thumbnail rounded-circle">
                                     </a>
                                     <div class="pl-2">
                                         <a href="javascript:void(0)">
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="d-flex flex-row p-3">
                                     <a href="javascript:void(0)">
-                                        <img src="http://www.madcoderz.com/madol/asset/images/user/thumb/default-thumb.jpg" alt="Notification" class="list-thumbnail rounded-circle">
+                                        <img src="{{ URL::to('/') }}/images/user/U100.jpg" alt="Notification" class="list-thumbnail rounded-circle">
                                     </a>
                                     <div class="pl-2">
                                         <a href="javascript:void(0)">
@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="d-flex flex-row p-3">
                                     <a href="javascript:void(0)">
-                                        <img src="http://www.madcoderz.com/madol/asset/images/user/thumb/default-thumb.jpg" alt="Notification" class="list-thumbnail rounded-circle">
+                                        <img src="{{ URL::to('/') }}/images/user/U100.jpg" alt="Notification" class="list-thumbnail rounded-circle">
                                     </a>
                                     <div class="pl-2">
                                         <a href="javascript:void(0)">
@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="d-flex flex-row p-3">
                                     <a href="javascript:void(0)">
-                                        <img src="http://www.madcoderz.com/madol/asset/images/user/thumb/default-thumb.jpg" alt="Notification" class="list-thumbnail rounded-circle">
+                                        <img src="{{ URL::to('/') }}/images/user/U100.jpg" alt="Notification" class="list-thumbnail rounded-circle">
                                     </a>
                                     <div class="pl-2">
                                         <a href="javascript:void(0)">
@@ -109,14 +109,14 @@
                     </li>
                     <li class="dropdown nav-profile hw35 pr-3">
                         <a href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link arrow-none">
-                            <img src="http://www.madcoderz.com/madol/asset/images/user/thumb/default-thumb.jpg" alt="" class="list-thumbnail rounded-circle">
+                            <img src="{{ URL::to('/') }}/images/user/U100.jpg" alt="" class="list-thumbnail rounded-circle">
                         </a>
                         <div class="dropdown-menu hw45 dropdown-box-grid">
                             <ul class="dropdown-inner p-2">
                                 <li class="pb-3">
                                     <div class="dd-userbox d-flex flex-row">
                                         <div class="dd-img">
-                                            <img alt="madol" src="http://www.madcoderz.com/madol/asset/images/user/thumb/default-thumb.jpg" class="rounded-circle">
+                                            <img alt="madol" src="{{ URL::to('/') }}/images/user/U100.jpg" class="rounded-circle">
                                         </div>
                                         <div class="dd-info">
                                             <h4>Vesa J Helenius</h4>
@@ -160,7 +160,7 @@
                 <figure class="side-user-bg">
 
                 </figure>
-                <img src="http://www.madcoderz.com/madol/asset/images/user/thumb/default-thumb.jpg" alt="" class="rounded-circle">
+                <img src="{{ URL::to('/') }}/images/user/U100.jpg" alt="" class="rounded-circle">
                 <h5 class="text-center text-medium">Vesa J Helenius</h5>
             </div>
             <ul class="metismenu" id="menu">

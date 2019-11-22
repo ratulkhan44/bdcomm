@@ -145,7 +145,50 @@ class CommonController extends Controller
         }
     }
 
-    // public function permitText() {
-    //     $user         = Auth::user();
-    // }
+    public function sendTextHelper($uri) {
+
+        $ch             = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $uri);
+        curl_exec($ch);
+        return "Done";
+    }
+
+    public function sendCampaignSMS($id) {
+
+        $text = Campaign::with('text')->find($id)->text->message;
+        $numbers  = Campaign::find($id)->clients->pluck('contact');
+
+        $info = array(
+            'user' => 'Frabbi',
+            'password' => 'FRabbi@123!',
+            'SMSText' => 'SMSText',
+            'GSM' => '8801685627791',
+            'type' => 'longSMS',
+            'datacoding' => '8',
+        );
+
+        $encodedURI = http_build_query($info);
+        $baseURI = 'http://api.rankstelecom.com/api/v3/sendsms/plain';
+
+        $smsURL = $baseURI.'?'.$encodedURI;
+
+        foreach ($numbers as $key => $number) {
+            $info = array(
+                'user' => 'Frabbi',
+                'password' => 'FRabbi@123!',
+                'SMSText' => $text,
+                'GSM' => '88'.$number,
+                'type' => 'longSMS',
+                'datacoding' => '8',
+            );
+
+            $encodedURI = http_build_query($info);
+            $baseURI = 'http://api.rankstelecom.com/api/v3/sendsms/plain';
+
+            $smsURL = $baseURI.'?'.$encodedURI;
+            $this->sendTextHelper($smsURL);
+            return redirect()->back();
+        }
+    }
+
 }
