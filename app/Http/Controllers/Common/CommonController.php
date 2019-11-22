@@ -149,8 +149,8 @@ class CommonController extends Controller
 
         $ch             = curl_init();
         curl_setopt($ch, CURLOPT_URL, $uri);
-        curl_exec($ch);
-        return "Done";
+        $response = curl_exec($ch);
+        return $response;
     }
 
     public function sendCampaignSMS($id) {
@@ -186,7 +186,10 @@ class CommonController extends Controller
             $baseURI = 'http://api.rankstelecom.com/api/v3/sendsms/plain';
 
             $smsURL = $baseURI.'?'.$encodedURI;
-            $this->sendTextHelper($smsURL);
+            // $response = $this->sendTextHelper($smsURL);
+
+            $campaignStateChange = Campaign::where('id', $id)->update(array('status' => '1'));
+
             return redirect()->back();
         }
     }
